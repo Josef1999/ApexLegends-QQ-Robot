@@ -18,7 +18,7 @@ nonebot2==2.0.0b2
 *po主讲的很详细，零基础照着做也能搭个机器人出来*
 
 ### 插件使用
-将apex_helper文件夹放入nonebot2生成工程的plugins目录下，补全config.json中的APEX_AUTH（在 https://apexlegendsapi.com/中获取）
+将apex_helper文件夹放入nonebot2生成工程的plugins目录下，补全config.json中的APEX_AUTH（在 https://apexlegendsapi.com/ 中获取）
 ## 相关api依赖
 
 **apex数据：https://apexlegendsapi.com/**
