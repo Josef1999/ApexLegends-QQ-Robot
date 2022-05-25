@@ -24,6 +24,8 @@ class Utils:
             'optic_variable_aog' : '2-4倍镜',
             'extended_light_mag' : '轻型弹匣(紫)',
             'backpack' : '紫包',
+            'extended_heavy_mag' : '加长重型弹匣',
+            'optic_hcog_bruiser' : '2倍镜',
             'helmet' : '紫头'
         }
         return crafting__translation[crafting_name] if crafting__translation.get(crafting_name) is not None else crafting_name

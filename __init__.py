@@ -6,17 +6,21 @@ from nonebot.adapters import Message
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Event
 
-
-helper_matcher = on_command(CmdEnum.HELP.value)
-@helper_matcher.handle()
-async def _():
-    helper_info = ""
-    attr = [a for a in dir(UsageEnum) if not a.startswith('__')]
-    for a in attr:
-        helper_info +=  getattr(UsageEnum, a).value + '\n'
-    helper_info = helper_info.lstrip('\n') 
-    helper_info = helper_info.rstrip('\n')
-    await helper_matcher.send(helper_info)
+__zx_plugin_name__ = "APEX查询"
+__plugin_usage__ = """
+usage:
+    查询当前与即将轮换的大逃杀地图，查询战绩，查询本日与本周制造
+    查询制造,查询战绩,绑定ID [EA ID],地图信息
+""".strip()
+__plugin_des__ = "APEX查询一些东西"
+__plugin_cmd__ = ["查询制造", "查询战绩", "绑定ID", "地图信息"]
+__plugin_author__ = "Josef1999"
+__plugin_settings__ = {
+    "level": 5,
+    "default_status": True,
+    "limit_superuser": False,
+    "cmd": ["查询制造", "查询战绩", "绑定ID", "地图信息"],
+}
 
 bind_matcher = on_command(CmdEnum.BIND.value)
 @bind_matcher.handle()
