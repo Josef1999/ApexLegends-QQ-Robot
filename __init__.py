@@ -130,19 +130,21 @@ async def _():
         await map_matcher.send('apex查询制造功能出错!')
         return 
     crafting = []
+    costs = []
     for j in range(2):
         crafting_js = response.json()[j]['bundleContent']
         for i in range(2):
             crafting.append(crafting_js[i]['itemType']['name'])
+            costs.append(crafting_js[i]['cost'])
         
     crafting_info = \
 '''
-[今日制造]: {daily_craftint1}, {daily_craftint2}
-[本周制造]: {weekly_crafting1}, {weekly_crafting2}
-'''.format( daily_craftint1=Utils.try_translate_crafting(crafting[0]), 
-            daily_craftint2=Utils.try_translate_crafting(crafting[1]), 
-            weekly_crafting1=Utils.try_translate_crafting(crafting[2]), 
-            weekly_crafting2=Utils.try_translate_crafting(crafting[3])
+[今日制造]: {daily_crafting1}({daily_crafting1_cost}), {daily_crafting2}({daily_crafting2_cost})
+[本周制造]: {weekly_crafting1}({weekly_crafting1_cost}), {weekly_crafting2}({weekly_crafting2_cost})
+'''.format( daily_crafting1=Utils.try_translate_crafting(crafting[0]), daily_crafting1_cost=costs[0], 
+            daily_crafting2=Utils.try_translate_crafting(crafting[1]), daily_crafting2_cost=costs[1], 
+            weekly_crafting1=Utils.try_translate_crafting(crafting[2]), weekly_crafting1_cost=costs[2], 
+            weekly_crafting2=Utils.try_translate_crafting(crafting[3]), weekly_crafting2_cost=costs[3]
             )
     crafting_info=crafting_info.rstrip('\n')
     crafting_info=crafting_info.lstrip('\n')
