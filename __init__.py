@@ -31,7 +31,7 @@ async def _(event: Event, text: Message = CommandArg()):
     args = Utils.get_args(text)
 
     if len(args) < 1:
-        await bind_matcher.send('请输入EA ID!')
+        await bind_matcher.send('绑定id使用方式: ' + UsageEnum.BIND.value)
         return 
 
     EA_ID = args[0]
