@@ -10,13 +10,16 @@
 4. 查询当前制造：输出本日与本周制造
 
 ## 插件使用
+1. 将本仓库clone到zhenxun_bot/plugins文件夹下，放在自定义插件目录下也行
+2. 在 https://portal.apexlegendsapi.com/ 中生成API KEY，填入config.json的APEX_AUTH中
 
-在 https://portal.apexlegendsapi.com/ 中生成API KEY，填入config.json的APEX_AUTH中
+## 常见QA
+- Q:怎么获取绑定用的ID？
+  - A: EA ID获取方式：点击登陆 EA账号与财务设定 (https://myaccount.ea.com/cp-ui/aboutme/index) ，登陆后个人页面即可查询 EA ID。
 
-EA ID获取方式：点击登陆>EA账号与财务设定 (https://myaccount.ea.com/cp-ui/aboutme/index) ，登陆后个人页面即可查询 EA ID。
+- Q:机器人为什么没有对插件提供的指令作出反应？
+  - A:请检查输入的指令是否正确，若指令正确请检查服务器的日志输出。此外由于本插件使用的查询网站存在网络波动可能，并且该网站默认的api key只支持30次/min的查询频率（可升级至120次/min），故无法保证相关数据查询指令百分百可用。如上述两种情况都不适用，请阅读Issues目录下内容，若问题仍未解决，请提出新的Issue。
 
-再Clone到zhenxun_bot/plugins文件夹下即可，放在自定义插件目录下也行
 
 ## 相关api依赖
-
 信息查询API来自 [**APEX LEGENDS STATUS**](https://apexlegendsapi.com/)
