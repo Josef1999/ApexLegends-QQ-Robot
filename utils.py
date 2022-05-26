@@ -5,6 +5,8 @@ from .Config import Config
 from nonebot.adapters import Message
 
 CONFIG_PATH = os.path.join(os.path.dirname(__file__),'config.json')
+QQ_EAID_PATH = os.path.join(os.path.dirname(__file__),'qq_eaID.json')
+
 CONFIG = Config(CONFIG_PATH)    
 
 class Utils:
@@ -83,11 +85,10 @@ class PlayerInfo:
 
 # 针对qq与ea_id绑定持久化
 class Persistence:
-    __saveDir = CONFIG.getSaveDir()
-    __saveFileName = CONFIG.getFileName()
+
     @staticmethod
     def load():
-        target_file = open(os.path.join(Persistence.__saveDir, Persistence.__saveFileName), 'r+')
+        target_file = open(QQ_EAID_PATH, 'r+')
         try:
             QQ_EA = json.load(target_file)
             print('load_sucess')
@@ -99,7 +100,7 @@ class Persistence:
     
     @staticmethod
     def write(js):
-        target_file = open(os.path.join(Persistence.__saveDir, Persistence.__saveFileName), 'w+')
+        target_file = open(QQ_EAID_PATH, 'w+')
         json.dump(js, target_file)
         target_file.close()
         return 
