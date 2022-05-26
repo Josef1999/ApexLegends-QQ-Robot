@@ -26,6 +26,8 @@ class Utils:
         crafting__translation = {
             'optic_variable_aog' : '2~4倍镜',
             'extended_light_mag' : '轻型弹匣',
+            'shotgun_bolt' : '霰弹枪栓',
+            'optic_digital_threat' : '1倍金镜',
             'backpack' : '紫包',
             'extended_heavy_mag' : '加长重型弹匣',
             'optic_hcog_bruiser' : '2倍镜',
