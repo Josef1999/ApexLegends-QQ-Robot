@@ -7,7 +7,7 @@ class CmdEnum(Enum):
     CRAFTING = "当前制造"
 
 class UsageEnum(Enum):
-    BIND = '.{cmd} EA_ID [自动将qq号与EA id绑定]'.format(cmd=CmdEnum.BIND.value)
     RECORD = '.{cmd} EA_ID [若已绑定EA id,可不输入EA_ID]'.format(cmd=CmdEnum.RECORD.value)
+    BIND = '.{cmd} EA_ID [自动将qq号与EA id绑定]'.format(cmd=CmdEnum.BIND.value)
     MAP = '.{cmd}'.format(cmd=CmdEnum.MAP.value)
     CRAFTING = '.{cmd}'.format(cmd=CmdEnum.CRAFTING.value)

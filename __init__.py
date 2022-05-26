@@ -9,17 +9,20 @@ from nonebot.adapters.onebot.v11 import Event
 __zx_plugin_name__ = "APEX查询"
 __plugin_usage__ = """
 usage:
-    查询当前与即将轮换的大逃杀地图，查询战绩，查询本日与本周制造
-    查询制造,查询战绩,绑定ID [EA ID],地图信息
-""".strip()
-__plugin_des__ = "APEX查询一些东西"
-__plugin_cmd__ = ["查询制造", "查询战绩", "绑定ID", "地图信息"]
+    查询当前与即将轮换的大逃杀地图;查询战绩;查询制造
+    {}, 
+    {}, 
+    {}, 
+    {}
+""".format(UsageEnum.MAP.value, UsageEnum.CRAFTING.value, UsageEnum.BIND.value, UsageEnum.RECORD.value).strip()
+__plugin_des__ = "APEX信息查询"
+__plugin_cmd__ = [CmdEnum.CRAFTING.value, CmdEnum.RECORD.value, CmdEnum.BIND.value, CmdEnum.MAP.value]
 __plugin_author__ = "Josef1999"
 __plugin_settings__ = {
     "level": 5,
     "default_status": True,
     "limit_superuser": False,
-    "cmd": ["查询制造", "查询战绩", "绑定ID", "地图信息"],
+    "cmd": __plugin_cmd__,
 }
 
 bind_matcher = on_command(CmdEnum.BIND.value)
