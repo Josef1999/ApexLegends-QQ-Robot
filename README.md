@@ -15,8 +15,8 @@
 
 EA ID获取方式：点击登陆>EA账号与财务设定 (https://myaccount.ea.com/cp-ui/aboutme/index) ，登陆后个人页面即可查询 EA ID。
 
-## 相关api依赖
-
 再Clone到zhenxun_bot/plugins文件夹下即可，放在自定义插件目录下也行
+
+## 相关api依赖
 
 信息查询API来自 [**APEX LEGENDS STATUS**](https://apexlegendsapi.com/)
