@@ -5,6 +5,7 @@ from .Config import Config
 from nonebot.adapters import Message
 
 CONFIG_PATH = os.path.join(os.path.dirname(__file__),'config.json')
+QQ_EAID_PATH = os.path.join(os.path.dirname(__file__),'qq_eaID.json')
 CONFIG = Config(CONFIG_PATH)    
 
 class Utils:
@@ -14,6 +15,7 @@ class Utils:
         br_translation = {
             'Storm Point'   :'风暴点',
             'Olympus'       :'奥林匹斯',
+            'Kings Canyon'  :'诸王峡谷',
             "World's Edge"  :'世界尽头',
         }
         return br_translation[br_name] if br_translation.get(br_name) is not None else br_name
@@ -21,10 +23,36 @@ class Utils:
     @staticmethod
     def try_translate_crafting(crafting_name):
         crafting__translation = {
-            'optic_variable_aog' : '2-4倍镜',
-            'extended_light_mag' : '轻型弹匣(紫)',
-            'backpack' : '紫包',
-            'helmet' : '紫头'
+        ## key的准确性未知
+        #每日
+            # 瞄具 倍率高->低
+            'optic_variable_sniper' : '4~8倍镜',
+            'optic_variable_aog' : '2~4倍镜',#tested
+            'optic_hcog_ranger' : '3倍镜',  
+            'optic_hcog_bruiser' : '2倍镜',#tested
+            'optic_digital_threat' : '1倍金镜',#tested
+            # 弹匣
+            'extended_light_mag' : '紫轻型弹匣',#tested
+            'extended_heavy_mag' : '紫重型弹匣',
+            'extended_energy_mag' : '紫能量弹匣',
+            'extended_sniper_mag' : '紫狙击弹匣',
+            # 其余枪械部件
+            'barrel_stabilizer' : '紫枪管稳定器',
+            'shotgun_bolt' : '紫霰弹枪栓',
+            'standard_stock' : '紫标准枪托',
+            'sniper_stock' : '紫狙击枪托',
+            # 即用配件
+            'boosted_loader' : '加速装填器',
+            'turbocharger' : '涡轮增压器',
+            "deadeye's_tempo" : '神射手速度节拍',
+            'hammerpoint_rounds' : '锤击点',
+            'kinetic_feeder' : '动能供弹器',
+            'shatter_caps' : '粉碎帽',
+        #每周
+            'mobile_respawn_beacon' : '移动重生信标',#tested
+            'knockdown_shield' : '紫击倒护盾',#tested
+            'backpack' : '紫包',#tested
+            'helmet' : '紫头'#tested
         }
         return crafting__translation[crafting_name] if crafting__translation.get(crafting_name) is not None else crafting_name
 
@@ -32,6 +60,20 @@ class Utils:
     def try_translate_legend(legend_name):
         legend_translation = {}
         return legend_translation[legend_name] if legend_translation.get(legend_name) is not None else legend_name
+
+    @staticmethod
+    def try_translate_rank(rank_name):
+        rank_name_translation = {
+            'Rookie'    : '菜鸟',
+            'Bronze'    : '青铜',
+            'Silver'    : '白银',
+            'Gold'      : '黄金',
+            'Platinum'  : '白金',
+            'Diamond'   : '钻石',
+            'Master'    : '大师',
+            'Predator'  : '猎杀' #该翻译存疑
+        }
+        return rank_name_translation[rank_name] if rank_name_translation.get(rank_name) is not None else rank_name
 
     @staticmethod
     def get_args(text:Message):
@@ -72,17 +114,16 @@ class PlayerInfo:
     def rank(self):
         rankinfo = self.__js["global"]['rank']
         rankscore = rankinfo['rankScore']
-        rankname = rankinfo['rankName']
+        rankname = Utils.try_translate_rank(rankinfo['rankName']) 
         rankdiv = rankinfo['rankDiv']
         return rankscore, rankname, rankdiv
 
 # 针对qq与ea_id绑定持久化
 class Persistence:
-    __saveDir = CONFIG.getSaveDir()
-    __saveFileName = CONFIG.getFileName()
+
     @staticmethod
     def load():
-        target_file = open(os.path.join(Persistence.__saveDir, Persistence.__saveFileName), 'r+')
+        target_file = open(QQ_EAID_PATH, 'r+')
         try:
             QQ_EA = json.load(target_file)
             print('load_sucess')
@@ -94,7 +135,7 @@ class Persistence:
     
     @staticmethod
     def write(js):
-        target_file = open(os.path.join(Persistence.__saveDir, Persistence.__saveFileName), 'w+')
+        target_file = open(QQ_EAID_PATH, 'w+')
         json.dump(js, target_file)
         target_file.close()
         return 

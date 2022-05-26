@@ -24,14 +24,14 @@ async def _(event: Event, text: Message = CommandArg()):
     args = Utils.get_args(text)
 
     if len(args) < 1:
-        await bind_matcher.send('请输入EA ID!')
+        await bind_matcher.send('绑定id使用方式: ' + UsageEnum.BIND.value)
         return 
 
     EA_ID = args[0]
     response = Query.record(EA_ID)
     if response.status_code != 200:
         print(response.content.decode("utf-8"))
-        await bind_matcher.send('EA ID疑似有误!')
+        await bind_matcher.send('EA id疑似有误!')
     else:
         QQ_EA = Persistence.load()
         QQ = event.get_user_id()
@@ -44,7 +44,7 @@ map_matcher = on_command(CmdEnum.MAP.value)
 async def _():
     response = Query.map()
     if response.status_code != 200:
-        await map_matcher.send('apex查询地图功能出错!')
+        await map_matcher.send('查询当前地图出错!你可能没填API KEY')
         return 
     content = eval(response.content.decode("utf-8"))
     brs = content['battle_royale']
@@ -61,10 +61,10 @@ async def _():
     
     map_info = \
 """
-[匹配]: 
+[休闲]: 
   当前地图: {current_rand_br}
   下一地图: {next_rand_br}
-  轮换时间: {trans_min}min后
+  轮换时间: {trans_min}分钟后
 [排位]: 
   当前地图: {current_rank_br}
   下一地图: {next_rank_br}
@@ -89,17 +89,17 @@ async def _(event: Event, text: Message = CommandArg()):
     elif len(args) == 1:
         response = Query.record(args[0])
         if response.status_code != 200:
-            await playerInfo_matcher.send('EA ID疑似有误!')
+            await playerInfo_matcher.send('EA id疑似有误!')
             return
     else:
         QQ = event.get_user_id()
         QQ_EA = Persistence.load()
         if QQ_EA.get(QQ) is None:
-            await playerInfo_matcher.send('{QQ}未绑定EA ID!'.format(QQ=QQ))
+            await playerInfo_matcher.send('{QQ}未绑定EA账号!'.format(QQ=QQ))
             return
         response = Query.record(QQ_EA[QQ])
         if response.status_code != 200:
-            await playerInfo_matcher.send('绑定的EA ID疑似有误!')
+            await playerInfo_matcher.send('绑定的EA id疑似有误!')
             return
 
     p = PlayerInfo(response.json())
@@ -123,22 +123,24 @@ async def _():
     response = Query.crafting()
 
     if response.status_code != 200:
-        await map_matcher.send('apex查询制造功能出错!')
+        await map_matcher.send('查询当前制造出错!你可能没填API KEY')
         return 
     crafting = []
+    costs = []
     for j in range(2):
         crafting_js = response.json()[j]['bundleContent']
         for i in range(2):
             crafting.append(crafting_js[i]['itemType']['name'])
+            costs.append(crafting_js[i]['cost'])
         
     crafting_info = \
 '''
-[今日制造]: {daily_craftint1}, {daily_craftint2}
-[本周制造]: {weekly_crafting1}, {weekly_crafting2}
-'''.format( daily_craftint1=Utils.try_translate_crafting(crafting[0]), 
-            daily_craftint2=Utils.try_translate_crafting(crafting[1]), 
-            weekly_crafting1=Utils.try_translate_crafting(crafting[2]), 
-            weekly_crafting2=Utils.try_translate_crafting(crafting[3])
+[今日制造]: {daily_crafting1}({daily_crafting1_cost}), {daily_crafting2}({daily_crafting2_cost})
+[本周制造]: {weekly_crafting1}({weekly_crafting1_cost}), {weekly_crafting2}({weekly_crafting2_cost})
+'''.format( daily_crafting1=Utils.try_translate_crafting(crafting[0]), daily_crafting1_cost=costs[0], 
+            daily_crafting2=Utils.try_translate_crafting(crafting[1]), daily_crafting2_cost=costs[1], 
+            weekly_crafting1=Utils.try_translate_crafting(crafting[2]), weekly_crafting1_cost=costs[2], 
+            weekly_crafting2=Utils.try_translate_crafting(crafting[3]), weekly_crafting2_cost=costs[3]
             )
     crafting_info=crafting_info.rstrip('\n')
     crafting_info=crafting_info.lstrip('\n')
