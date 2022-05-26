@@ -106,7 +106,7 @@ async def _(event: Event, text: Message = CommandArg()):
             return
         response = Query.record(QQ_EA[QQ])
         if response.status_code != 200:
-            await playerInfo_matcher.send('绑定的EA账号疑似有误!')
+            await playerInfo_matcher.send('绑定的EA id疑似有误!')
             return
 
     p = PlayerInfo(response.json())
