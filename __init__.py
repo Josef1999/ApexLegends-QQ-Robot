@@ -6,17 +6,21 @@ from nonebot.adapters import Message
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Event
 
-
-helper_matcher = on_command(CmdEnum.HELP.value)
-@helper_matcher.handle()
-async def _():
-    helper_info = ""
-    attr = [a for a in dir(UsageEnum) if not a.startswith('__')]
-    for a in attr:
-        helper_info +=  getattr(UsageEnum, a).value + '\n'
-    helper_info = helper_info.lstrip('\n') 
-    helper_info = helper_info.rstrip('\n')
-    await helper_matcher.send(helper_info)
+__zx_plugin_name__ = "APEX查询"
+__plugin_usage__ = """
+usage:
+    查询当前与即将轮换的大逃杀地图，查询战绩，查询本日与本周制造
+    查询制造,查询战绩,绑定ID [EA ID],地图信息
+""".strip()
+__plugin_des__ = "APEX查询一些东西"
+__plugin_cmd__ = ["查询制造", "查询战绩", "绑定ID", "地图信息"]
+__plugin_author__ = "Josef1999"
+__plugin_settings__ = {
+    "level": 5,
+    "default_status": True,
+    "limit_superuser": False,
+    "cmd": ["查询制造", "查询战绩", "绑定ID", "地图信息"],
+}
 
 bind_matcher = on_command(CmdEnum.BIND.value)
 @bind_matcher.handle()
@@ -126,19 +130,21 @@ async def _():
         await map_matcher.send('apex查询制造功能出错!')
         return 
     crafting = []
+    costs = []
     for j in range(2):
         crafting_js = response.json()[j]['bundleContent']
         for i in range(2):
             crafting.append(crafting_js[i]['itemType']['name'])
+            costs.append(crafting_js[i]['cost'])
         
     crafting_info = \
 '''
-[今日制造]: {daily_craftint1}, {daily_craftint2}
-[本周制造]: {weekly_crafting1}, {weekly_crafting2}
-'''.format( daily_craftint1=Utils.try_translate_crafting(crafting[0]), 
-            daily_craftint2=Utils.try_translate_crafting(crafting[1]), 
-            weekly_crafting1=Utils.try_translate_crafting(crafting[2]), 
-            weekly_crafting2=Utils.try_translate_crafting(crafting[3])
+[今日制造]: {daily_crafting1}({daily_crafting1_cost}), {daily_crafting2}({daily_crafting2_cost})
+[本周制造]: {weekly_crafting1}({weekly_crafting1_cost}), {weekly_crafting2}({weekly_crafting2_cost})
+'''.format( daily_crafting1=Utils.try_translate_crafting(crafting[0]), daily_crafting1_cost=costs[0], 
+            daily_crafting2=Utils.try_translate_crafting(crafting[1]), daily_crafting2_cost=costs[1], 
+            weekly_crafting1=Utils.try_translate_crafting(crafting[2]), weekly_crafting1_cost=costs[2], 
+            weekly_crafting2=Utils.try_translate_crafting(crafting[3]), weekly_crafting2_cost=costs[3]
             )
     crafting_info=crafting_info.rstrip('\n')
     crafting_info=crafting_info.lstrip('\n')

@@ -14,6 +14,7 @@ class Utils:
         br_translation = {
             'Storm Point'   :'风暴点',
             'Olympus'       :'奥林匹斯',
+            'Kings Canyon'  :'诸王峡谷',
             "World's Edge"  :'世界尽头',
         }
         return br_translation[br_name] if br_translation.get(br_name) is not None else br_name
@@ -21,9 +22,13 @@ class Utils:
     @staticmethod
     def try_translate_crafting(crafting_name):
         crafting__translation = {
-            'optic_variable_aog' : '2-4倍镜',
-            'extended_light_mag' : '轻型弹匣(紫)',
+            'optic_variable_aog' : '2~4倍镜',
+            'extended_light_mag' : '轻型弹匣',
             'backpack' : '紫包',
+            'extended_heavy_mag' : '加长重型弹匣',
+            'optic_hcog_bruiser' : '2倍镜',
+            'mobile_respawn_beacon' : '移动重生信标',
+            'knockdown_shield' : '击倒护盾',
             'helmet' : '紫头'
         }
         return crafting__translation[crafting_name] if crafting__translation.get(crafting_name) is not None else crafting_name
