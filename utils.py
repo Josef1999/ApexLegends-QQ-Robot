@@ -31,7 +31,9 @@ class Utils:
             'optic_hcog_bruiser' : '2倍镜',
             'mobile_respawn_beacon' : '移动重生信标',
             'knockdown_shield' : '击倒护盾',
-            'helmet' : '紫头'
+            'helmet' : '紫头',
+            'shotgun_bolt' : '紫霰弹栓',
+            'optic_digital_threat' : '金单倍镜(烟镜)'
         }
         return crafting__translation[crafting_name] if crafting__translation.get(crafting_name) is not None else crafting_name
 
