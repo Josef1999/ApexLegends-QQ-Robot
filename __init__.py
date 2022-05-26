@@ -6,10 +6,10 @@ from nonebot.adapters import Message
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Event
 
-__zx_plugin_name__ = "APEX查询"
+__zx_plugin_name__ = "apex查询"
 __plugin_usage__ = """
 usage:
-    查询当前与即将轮换的大逃杀地图;查询战绩;查询制造
+    查询当前轮换地图;查询战绩;查询制造
     {}, 
     {}, 
     {}, 
@@ -38,7 +38,7 @@ async def _(event: Event, text: Message = CommandArg()):
     response = Query.record(EA_ID)
     if response.status_code != 200:
         print(response.content.decode("utf-8"))
-        await bind_matcher.send('EA ID疑似有误!')
+        await bind_matcher.send('EA id疑似有误!')
     else:
         QQ_EA = Persistence.load()
         QQ = event.get_user_id()
@@ -51,7 +51,7 @@ map_matcher = on_command(CmdEnum.MAP.value)
 async def _():
     response = Query.map()
     if response.status_code != 200:
-        await map_matcher.send('apex查询地图功能出错!')
+        await map_matcher.send('查询当前地图出错!你可能没填API KEY')
         return 
     content = eval(response.content.decode("utf-8"))
     brs = content['battle_royale']
@@ -68,10 +68,10 @@ async def _():
     
     map_info = \
 """
-[匹配]: 
+[休闲]: 
   当前地图: {current_rand_br}
   下一地图: {next_rand_br}
-  轮换时间: {trans_min}min后
+  轮换时间: {trans_min}分钟后
 [排位]: 
   当前地图: {current_rank_br}
   下一地图: {next_rank_br}
@@ -96,17 +96,17 @@ async def _(event: Event, text: Message = CommandArg()):
     elif len(args) == 1:
         response = Query.record(args[0])
         if response.status_code != 200:
-            await playerInfo_matcher.send('EA ID疑似有误!')
+            await playerInfo_matcher.send('EA id疑似有误!')
             return
     else:
         QQ = event.get_user_id()
         QQ_EA = Persistence.load()
         if QQ_EA.get(QQ) is None:
-            await playerInfo_matcher.send('{QQ}未绑定EA ID!'.format(QQ=QQ))
+            await playerInfo_matcher.send('{QQ}未绑定EA账号!'.format(QQ=QQ))
             return
         response = Query.record(QQ_EA[QQ])
         if response.status_code != 200:
-            await playerInfo_matcher.send('绑定的EA ID疑似有误!')
+            await playerInfo_matcher.send('绑定的EA id疑似有误!')
             return
 
     p = PlayerInfo(response.json())
@@ -130,7 +130,7 @@ async def _():
     response = Query.crafting()
 
     if response.status_code != 200:
-        await map_matcher.send('apex查询制造功能出错!')
+        await map_matcher.send('查询当前制造出错!你可能没填API KEY')
         return 
     crafting = []
     costs = []
