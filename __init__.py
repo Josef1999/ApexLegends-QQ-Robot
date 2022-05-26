@@ -31,14 +31,14 @@ async def _(event: Event, text: Message = CommandArg()):
     args = Utils.get_args(text)
 
     if len(args) < 1:
-        await bind_matcher.send('绑定账号使用方式: ' + UsageEnum.BIND.value)
+        await bind_matcher.send('绑定id使用方式: ' + UsageEnum.BIND.value)
         return 
 
     EA_ID = args[0]
     response = Query.record(EA_ID)
     if response.status_code != 200:
         print(response.content.decode("utf-8"))
-        await bind_matcher.send('EA账号疑似有误!')
+        await bind_matcher.send('EA id疑似有误!')
     else:
         QQ_EA = Persistence.load()
         QQ = event.get_user_id()
