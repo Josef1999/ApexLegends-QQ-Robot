@@ -96,7 +96,7 @@ async def _(event: Event, text: Message = CommandArg()):
     elif len(args) == 1:
         response = Query.record(args[0])
         if response.status_code != 200:
-            await playerInfo_matcher.send('EA账号疑似有误!')
+            await playerInfo_matcher.send('EA id疑似有误!')
             return
     else:
         QQ = event.get_user_id()
