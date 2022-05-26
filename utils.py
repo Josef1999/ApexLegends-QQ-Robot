@@ -24,16 +24,36 @@ class Utils:
     @staticmethod
     def try_translate_crafting(crafting_name):
         crafting__translation = {
-            'optic_variable_aog' : '2~4倍镜',
-            'optic_hcog_bruiser' : '2倍镜',
-            'optic_digital_threat' : '1倍金镜',
-            'extended_light_mag' : '紫轻型弹匣',
+        ## key的准确性未知
+        #每日
+            # 瞄具 倍率高->低
+            'optic_variable_sniper' : '4~8倍镜',
+            'optic_variable_aog' : '2~4倍镜',#tested
+            'optic_hcog_ranger' : '3倍镜',  
+            'optic_hcog_bruiser' : '2倍镜',#tested
+            'optic_digital_threat' : '1倍金镜',#tested
+            # 弹匣
+            'extended_light_mag' : '紫轻型弹匣',#tested
             'extended_heavy_mag' : '紫重型弹匣',
+            'extended_energy_mag' : '紫能量弹匣',
+            'extended_sniper_mag' : '紫狙击弹匣',
+            # 其余枪械部件
+            'barrel_stabilizer' : '紫枪管稳定器',
             'shotgun_bolt' : '紫霰弹枪栓',
-            'mobile_respawn_beacon' : '移动重生信标',
-            'knockdown_shield' : '紫击倒护盾',
-            'backpack' : '紫包',
-            'helmet' : '紫头'
+            'standard_stock' : '紫标准枪托',
+            'sniper_stock' : '紫狙击枪托',
+            # 即用配件
+            'boosted_loader' : '加速装填器',
+            'turbocharger' : '涡轮增压器',
+            "deadeye's_tempo" : '神射手速度节拍',
+            'hammerpoint_rounds' : '锤击点',
+            'kinetic_feeder' : '动能供弹器',
+            'shatter_caps' : '粉碎帽',
+        #每周
+            'mobile_respawn_beacon' : '移动重生信标',#tested
+            'knockdown_shield' : '紫击倒护盾',#tested
+            'backpack' : '紫包',#tested
+            'helmet' : '紫头'#tested
         }
         return crafting__translation[crafting_name] if crafting__translation.get(crafting_name) is not None else crafting_name
 
@@ -41,6 +61,20 @@ class Utils:
     def try_translate_legend(legend_name):
         legend_translation = {}
         return legend_translation[legend_name] if legend_translation.get(legend_name) is not None else legend_name
+
+    @staticmethod
+    def try_translate_rank(rank_name):
+        rank_name_translation = {
+            'Rookie'    : '菜鸟',
+            'Bronze'    : '青铜',
+            'Silver'    : '白银',
+            'Gold'      : '黄金',
+            'Platinum'  : '白金',
+            'Diamond'   : '钻石',
+            'Master'    : '大师',
+            'Predator'  : '猎杀' #该翻译存疑
+        }
+        return rank_name_translation[rank_name] if rank_name_translation.get(rank_name) is not None else rank_name
 
     @staticmethod
     def get_args(text:Message):
@@ -81,7 +115,7 @@ class PlayerInfo:
     def rank(self):
         rankinfo = self.__js["global"]['rank']
         rankscore = rankinfo['rankScore']
-        rankname = rankinfo['rankName']
+        rankname = Utils.try_translate_rank(rankinfo['rankName']) 
         rankdiv = rankinfo['rankDiv']
         return rankscore, rankname, rankdiv
 
