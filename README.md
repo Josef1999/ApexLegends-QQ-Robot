@@ -21,6 +21,7 @@ nonebot2==2.0.0b2
 
 ### 插件使用
 详见 [真寻bot插件库](https://github.com/zhenxun-org/nonebot_plugins_zhenxun_bot/tree/index)
+*注：需在 https://portal.apexlegendsapi.com/ 中生成API KEY，填入config.json的APEX_AUTH中*
 
 ## 相关api依赖
 
