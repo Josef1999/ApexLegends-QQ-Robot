@@ -23,6 +23,8 @@ nonebot2==2.0.0b2
 详见 [真寻bot插件库](https://github.com/zhenxun-org/nonebot_plugins_zhenxun_bot/tree/index)
 *注：需在 https://portal.apexlegendsapi.com/ 中生成API KEY，填入config.json的APEX_AUTH中*
 
+EA ID获取方式：点击登陆 EA账号与财务设定 (https://myaccount.ea.com/cp-ui/aboutme/index) ，登陆后个人页面即可查询 EA ID。
+
 ## 相关api依赖
 
 **apex数据：https://apexlegendsapi.com/**
