@@ -1,3 +1,10 @@
+<!--
+ * @Author: josefren
+ * @Date: 2022-05-26 19:01:02
+ * @LastEditTime: 2022-05-29 08:18:21
+ * @LastEditors: josefren
+ * @Description: README
+-->
 # Apex QQ群机器人
 
 ## 分支说明
@@ -12,6 +19,7 @@
 ## 插件使用
 1. 将本仓库clone到zhenxun_bot/plugins文件夹下，放在自定义插件目录下也行
 2. 在 https://portal.apexlegendsapi.com/ 中生成API KEY，填入config.json的APEX_AUTH中
+3. 执行"pip install -r requirements.txt"，安装所需Python库
 
 ## 常见QA
 - Q:怎么获取绑定用的ID？
